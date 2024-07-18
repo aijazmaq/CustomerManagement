@@ -10,5 +10,7 @@ namespace Service.Interface
     public interface ICustomerService
     {
         public CustomerResponse GetCustomer();
+        public IEnumerable<CustomerResponse> GetCustomerList();
+        public int SaveCustomer(CustomerRequest customer);
     }
 }

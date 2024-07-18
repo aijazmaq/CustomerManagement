@@ -1,3 +1,4 @@
+using Infrastructure.DBContext;
 using Service.Implementation;
 using Service.Interface;
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 IServiceCollection services = builder.Services;
 services.AddScoped<ICustomerService, CustomerService>();
+services.AddDbContext<DataBaseContext>();
 
 var app = builder.Build();
 

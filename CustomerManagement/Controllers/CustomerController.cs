@@ -18,9 +18,22 @@ namespace CustomerManagementApi.Controllers
         }
 
         [HttpGet("GetCustomer")]
-        public CustomerResponse GetCustomer()
+        public CustomerResponse GetCustomer(CustomerRequest customerRequest)
         {
+
             return _customerService.GetCustomer();
+        }
+
+        [HttpGet("GetCustomerList")]
+        public IEnumerable<CustomerResponse> GetCustomersList()
+        {
+            return _customerService.GetCustomerList();
+        }
+
+        [HttpPost("SaveCustomer")]
+        public int SaveCustomer(CustomerRequest customerRequest) 
+        {
+            return _customerService.SaveCustomer(customerRequest);
         }
     }
 }
