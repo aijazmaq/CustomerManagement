@@ -32,8 +32,8 @@ namespace Service.Implementation
 
         public IEnumerable<CustomerResponse> GetCustomerList()
         {
-            var response = _context.customers;
-            var result = (from customer in response
+            var responsefromTable = _context.customers;
+            var result = (from customer in responsefromTable
                           select new CustomerResponse
                           {
                               Name = customer.Name, 
