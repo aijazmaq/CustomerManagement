@@ -1,4 +1,6 @@
 using Infrastructure.DBContext;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Service.Implementation;
 using Service.Interface;
 
@@ -12,6 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 IServiceCollection services = builder.Services;
+
+//services.AddDbContextFactory<DataBaseContext>((ServiceProvider,builder)=> builder.UseSqlServer(
+//    ServiceProvider.GetRequiredService<>))
 services.AddScoped<ICustomerService, CustomerService>();
 services.AddDbContext<DataBaseContext>();
 

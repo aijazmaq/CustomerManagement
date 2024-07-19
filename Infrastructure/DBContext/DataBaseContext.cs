@@ -27,7 +27,27 @@ namespace Infrastructure.DBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Customer>().HasKey(x => x.Name);
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                //modelBuilder.Entity<Customer>().HasKey(x => x.Name);
+                entity.HasKey(e => new {e.Name });
+                //entity.ToTable("Customer1");
+                //entity.Property(e=> e.Name).HasColumnName("Nm");
+                //entity.HasIndex(e => e.Name).HasName("t");
+
+                //entity.Property(e => e.Address)
+                //.IsRequired()
+                //.HasColumnName("address")
+                //.HasMaxLength(100)
+                //.IsUnicode(true)
+                //.HasColumnType("text")
+                //.HasDefaultValueSql("some value");
+
+
+            });
+            
+           // modelBuilder.Entity<Customer>().HasKey(e=> new {e.Phone,e.Name});
+
         }
 
         public DbSet<Customer> customers { get; set; }

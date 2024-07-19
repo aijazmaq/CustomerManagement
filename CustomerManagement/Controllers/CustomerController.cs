@@ -17,11 +17,11 @@ namespace CustomerManagementApi.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet("GetCustomer")]
-        public CustomerResponse GetCustomer(CustomerRequest customerRequest)
+        [HttpPost("GetCustomer")]
+        public IEnumerable<CustomerResponse> GetCustomer(CustomerRequest customerRequest)
         {
 
-            return _customerService.GetCustomer();
+            return _customerService.GetCustomer(customerRequest);
         }
 
         [HttpGet("GetCustomerList")]

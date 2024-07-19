@@ -8,6 +8,7 @@ using Infrastructure.DataModel;
 using Infrastructure.DBContext;
 using Domain.Customer;
 using System.Collections.Immutable;
+using Microsoft.EntityFrameworkCore;
 
 namespace Service.Implementation
 {
@@ -19,27 +20,34 @@ namespace Service.Implementation
             _context = context;
         }
 
-        public CustomerResponse GetCustomer()
+        public IEnumerable<CustomerResponse> GetCustomer(CustomerRequest customerRequest)
         {
-            var response =  new CustomerResponse();
-            response.Name = "abcd";
-            response.Email = "abcd@emil.com";
-            response.Phone = "1234567890";
-            response.Address = "H11 abcd India";
-            return response;
+            var responsefromTable = _context.customers.Where(xx=> xx.Name == customerRequest.Name);
+            var result = (from xx in responsefromTable
+                          select new CustomerResponse
+                          {
+                              Name = xx.Name,
+                              Email = xx.Email,
+                              Phone = xx.Phone,
+                              Address = xx.Address
+
+                          }).ToList();
+
+            return result;
+
 
         }
 
         public IEnumerable<CustomerResponse> GetCustomerList()
         {
             var responsefromTable = _context.customers;
-            var result = (from customer in responsefromTable
+            var result = (from xx in responsefromTable
                           select new CustomerResponse
                           {
-                              Name = customer.Name, 
-                              Email = customer.Email,
-                              Phone = customer.Phone,
-                              Address = customer.Address
+                              Name = xx.Name, 
+                              Email = xx.Email,
+                              Phone = xx.Phone,
+                              Address = xx.Address
 
                           }).ToList();
               
@@ -55,6 +63,7 @@ namespace Service.Implementation
             request.Phone = customerRequest.Phone;
             request.Address = customerRequest.Address;
             _context.customers.Add(request);
+           // _context.Database.ExecuteSqlRaw("procedure @param1{0},@param1{1}", customerRequest.Name, customerRequest.Phone);
             return _context.SaveChanges();
         }
     }
