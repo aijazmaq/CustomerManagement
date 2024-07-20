@@ -13,27 +13,33 @@ namespace Infrastructure.DBContext
     public  class DataBaseContext : DbContext
     {
         protected readonly IConfiguration _configuration;
-        public DataBaseContext( IConfiguration configuration) 
+        public DataBaseContext(IConfiguration configuration, DbContextOptions<DataBaseContext> options) : base(options)
         {
             _configuration = configuration;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            // in memory database used for simplicity, change to a real db for production applications
-            options.UseInMemoryDatabase("TestDb");
-        }
+
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //{
+        //    // in memory database used for simplicity, change to a real db for production applications
+        //   // options.UseInMemoryDatabase("TestDb");
+
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Customer>(entity =>
             {
-                //modelBuilder.Entity<Customer>().HasKey(x => x.Name);
-                entity.HasKey(e => new {e.Name });
                 //entity.ToTable("Customer1");
-                //entity.Property(e=> e.Name).HasColumnName("Nm");
-                //entity.HasIndex(e => e.Name).HasName("t");
+                entity.HasKey(e => e.CustomerId);
+                //entity.Property(e => e.CustomerId).HasColumnName("CustomerId");
+                entity.Property(e => e.Name).HasColumnName("Name");
+                //entity.Property(e => e.Phone).HasColumnName("Phone");
+                //entity.Property(e => e.Email).HasColumnName("Email");
+                //entity.Property(e => e.Address).HasColumnName("Address");
+                ////entity.HasIndex(e => e.Name).HasName("t");
 
                 //entity.Property(e => e.Address)
                 //.IsRequired()
@@ -43,14 +49,11 @@ namespace Infrastructure.DBContext
                 //.HasColumnType("text")
                 //.HasDefaultValueSql("some value");
 
-
             });
-            
-           // modelBuilder.Entity<Customer>().HasKey(e=> new {e.Phone,e.Name});
 
         }
 
-        public DbSet<Customer> customers { get; set; }
+        public DbSet<Customer> customer { get; set; }
 
 
     }

@@ -22,7 +22,7 @@ namespace Service.Implementation
 
         public IEnumerable<CustomerResponse> GetCustomer(CustomerRequest customerRequest)
         {
-            var responsefromTable = _context.customers.Where(xx=> xx.Name == customerRequest.Name);
+            var responsefromTable = _context.customer.Where(xx=> xx.Name == customerRequest.Name);
             var result = (from xx in responsefromTable
                           select new CustomerResponse
                           {
@@ -40,17 +40,17 @@ namespace Service.Implementation
 
         public IEnumerable<CustomerResponse> GetCustomerList()
         {
-            var responsefromTable = _context.customers;
+            var responsefromTable = _context.customer;
             var result = (from xx in responsefromTable
                           select new CustomerResponse
                           {
-                              Name = xx.Name, 
+                              Name = xx.Name,
                               Email = xx.Email,
                               Phone = xx.Phone,
                               Address = xx.Address
 
                           }).ToList();
-              
+
             return result;
 
         }
@@ -62,7 +62,7 @@ namespace Service.Implementation
             request.Email = customerRequest.Email;
             request.Phone = customerRequest.Phone;
             request.Address = customerRequest.Address;
-            _context.customers.Add(request);
+            _context.customer.Add(request);
            // _context.Database.ExecuteSqlRaw("procedure @param1{0},@param1{1}", customerRequest.Name, customerRequest.Phone);
             return _context.SaveChanges();
         }

@@ -6,6 +6,7 @@ using Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -15,10 +16,11 @@ builder.Services.AddSwaggerGen();
 
 IServiceCollection services = builder.Services;
 
-//services.AddDbContextFactory<DataBaseContext>((ServiceProvider,builder)=> builder.UseSqlServer(
-//    ServiceProvider.GetRequiredService<>))
+//connection string to make connection with db 
+builder.Services.AddDbContext<DataBaseContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")));
+
+services.AddDbContext<DataBaseContext>(o=> o.UseInMemoryDatabase("TestDB"));
 services.AddScoped<ICustomerService, CustomerService>();
-services.AddDbContext<DataBaseContext>();
 
 var app = builder.Build();
 
