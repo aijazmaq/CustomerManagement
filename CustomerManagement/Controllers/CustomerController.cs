@@ -35,5 +35,11 @@ namespace CustomerManagementApi.Controllers
         {
             return _customerService.SaveCustomer(customerRequest);
         }
+
+        [HttpPut("UpdateCustomer")]
+        public int UpdateCustomer(CustomerRequest customerRequest)
+        {
+            return _customerService.UpdateCustomer(customerRequest);
+        }
     }
 }
