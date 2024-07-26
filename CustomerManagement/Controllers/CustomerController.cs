@@ -41,5 +41,12 @@ namespace CustomerManagementApi.Controllers
         {
             return _customerService.UpdateCustomer(customerRequest);
         }
+
+        
+        [HttpGet("GetCustomerListByProc")]
+        public IEnumerable<CustomerResponse> GetCustomerListByProc()
+        {
+            return _customerService.GetCustomerListByProc();
+        }
     }
 }

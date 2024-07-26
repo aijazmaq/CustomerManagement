@@ -11,6 +11,7 @@ namespace Service.Interface
     {
         public IEnumerable<CustomerResponse> GetCustomer(CustomerRequest customerRequest);
         public IEnumerable<CustomerResponse> GetCustomerList();
+        public IEnumerable<CustomerResponse> GetCustomerListByProc();
         public int SaveCustomer(CustomerRequest customer);
 
         public int UpdateCustomer(CustomerRequest customer);

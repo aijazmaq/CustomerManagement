@@ -17,7 +17,7 @@ namespace Service.Implementation
 
         public IEnumerable<CustomerResponse> GetCustomer(CustomerRequest customerRequest)
         {
-            var responsefromTable = _context.customer.Where(xx=> xx.Name == customerRequest.Name);
+            var responsefromTable = _context.customer.Where(xx => xx.Name == customerRequest.Name);
             var result = (from xx in responsefromTable
                           select new CustomerResponse
                           {
@@ -49,6 +49,8 @@ namespace Service.Implementation
 
             return result;
 
+
+
         }
 
         public int SaveCustomer(CustomerRequest customerRequest)
@@ -73,7 +75,7 @@ namespace Service.Implementation
             };
 
             return _context.Database.ExecuteSqlRaw(sql, parameters);
-           
+
         }
 
         public int UpdateCustomer(CustomerRequest customerRequest)
@@ -100,6 +102,33 @@ namespace Service.Implementation
             };
 
             return _context.Database.ExecuteSqlRaw(sql, parameters);
+
+        }
+
+        public IEnumerable<CustomerResponse> GetCustomerListByProc()
+        {
+
+            var sql = "GetCustomer";
+            var parameters = new[]
+            {
+                new SqlParameter()
+            };
+
+            var data = _context.customer.FromSqlRaw(sql).ToList();
+            var result = (from xx in data
+                          select new CustomerResponse
+                          {
+                              CustomerId = xx.CustomerId,
+                              Name = xx.Name,
+                              Email = xx.Email,
+                              Phone = xx.Phone,
+                              Address = xx.Address
+
+                          }).ToList();
+
+            return result;
+
+
 
         }
     }

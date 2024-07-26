@@ -19,7 +19,7 @@ IServiceCollection services = builder.Services;
 //connection string to make connection with db 
 builder.Services.AddDbContext<DataBaseContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection")));
 
-services.AddDbContext<DataBaseContext>(o=> o.UseInMemoryDatabase("TestDB"));
+//services.AddDbContext<DataBaseContext>(o=> o.UseInMemoryDatabase("TestDB"));
 services.AddScoped<ICustomerService, CustomerService>();
 
 var app = builder.Build();
