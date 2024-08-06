@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Service.Interface;
 using Service.Implementation;
 using Infrastructure.DataModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CustomerManagementApi.Controllers
 {
@@ -24,29 +25,47 @@ namespace CustomerManagementApi.Controllers
             return _customerService.GetCustomer(customerRequest);
         }
 
-        [HttpGet("GetCustomerList")]
-        public IEnumerable<CustomerResponse> GetCustomersList()
+
+        [HttpGet("GetCustomerByParam/{name}/{value}")]
+        public IActionResult GetCustomerByParam(string name,int value)
         {
-            return _customerService.GetCustomerList();
+
+            return Ok(_customerService.GetCustomerByParam(name));
+        }
+
+
+
+        //[HttpGet("GetCustomerList")]
+        //public IEnumerable<CustomerResponse> GetCustomersList()
+        //{
+        //    return _customerService.GetCustomerList();
+        //}
+
+        [HttpGet("GetCustomerList")]
+        public IActionResult GetCustomersList()
+        {
+            var result =  _customerService.GetCustomerList();
+            return Ok(result);
         }
 
         [HttpPost("SaveCustomer")]
-        public int SaveCustomer(CustomerRequest customerRequest) 
+        public IActionResult SaveCustomer(CustomerRequest customerRequest) 
         {
-            return _customerService.SaveCustomer(customerRequest);
+            return  Ok(_customerService.SaveCustomer(customerRequest));
         }
 
         [HttpPut("UpdateCustomer")]
-        public int UpdateCustomer(CustomerRequest customerRequest)
+        public IActionResult UpdateCustomer(CustomerRequest customerRequest)
         {
-            return _customerService.UpdateCustomer(customerRequest);
+       
+            return Ok(_customerService.UpdateCustomer(customerRequest));
         }
 
         
         [HttpGet("GetCustomerListByProc")]
-        public IEnumerable<CustomerResponse> GetCustomerListByProc()
+        public IActionResult GetCustomerListByProc()
         {
-            return _customerService.GetCustomerListByProc();
+            return Ok(_customerService.GetCustomerListByProc());
         }
     }
 }

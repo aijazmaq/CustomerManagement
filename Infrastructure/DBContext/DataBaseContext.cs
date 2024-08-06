@@ -12,10 +12,9 @@ namespace Infrastructure.DBContext
 {
     public  class DataBaseContext : DbContext
     {
-        protected readonly IConfiguration _configuration;
-        public DataBaseContext(IConfiguration configuration, DbContextOptions<DataBaseContext> options) : base(options)
+        //protected readonly IConfiguration _configuration;
+        public DataBaseContext( DbContextOptions<DataBaseContext> options) : base(options)
         {
-            _configuration = configuration;
         }
 
 

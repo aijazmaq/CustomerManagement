@@ -15,5 +15,7 @@ namespace Service.Interface
         public int SaveCustomer(CustomerRequest customer);
 
         public int UpdateCustomer(CustomerRequest customer);
+
+        public IEnumerable<CustomerResponse> GetCustomerByParam(string name);
     }
 }

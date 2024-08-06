@@ -33,6 +33,24 @@ namespace Service.Implementation
 
         }
 
+        public IEnumerable<CustomerResponse> GetCustomerByParam(string name)
+        {
+            var responsefromTable = _context.customer.Where(xx => xx.Name == name);
+            var result = (from xx in responsefromTable
+                          select new CustomerResponse
+                          {
+                              Name = xx.Name,
+                              Email = xx.Email,
+                              Phone = xx.Phone,
+                              Address = xx.Address
+
+                          }).ToList();
+
+            return result;
+
+
+        }
+
         public IEnumerable<CustomerResponse> GetCustomerList()
         {
             var responsefromTable = _context.customer;

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Service.Implementation;
 using Service.Interface;
+using Infrastructure.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,6 @@ builder.Services.AddDbContext<DataBaseContext>(opt => opt.UseSqlServer(builder.C
 
 //services.AddDbContext<DataBaseContext>(o=> o.UseInMemoryDatabase("TestDB"));
 services.AddScoped<ICustomerService, CustomerService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
