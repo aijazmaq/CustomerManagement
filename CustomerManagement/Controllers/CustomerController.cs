@@ -51,6 +51,12 @@ namespace CustomerManagementApi.Controllers
         [HttpPost("SaveCustomer")]
         public IActionResult SaveCustomer(CustomerRequest customerRequest) 
         {
+            var customValidation = new CustomerRequestValidtion();
+            var validResult = customValidation.Validate(customerRequest);
+            if (!validResult.IsValid)
+            { 
+                return BadRequest(validResult.Errors);
+            }
             return  Ok(_customerService.SaveCustomer(customerRequest));
         }
 
